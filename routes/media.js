@@ -40,7 +40,7 @@ router.post("/", (req, res) => {
     return res.json({
       data: {
         id: data.id,
-        image: `${HOSTNAME}:${PORT}/images/${filename}`,
+        image: `${HOSTNAME}:${PORT}/${filename}`,
       },
     });
   });
