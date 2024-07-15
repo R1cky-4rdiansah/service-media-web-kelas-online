@@ -5,11 +5,13 @@ const base64img = require("base64-img");
 const { Media } = require("../models");
 const fs = require("fs");
 
+const { HOSTNAME, PORT } = process.env;
+
 router.get("/", async (req, res) => {
   const media = await Media.findAll({ attributes: ["id", "image"] });
 
   const mediaMapped = media.map((val) => {
-    val.image = `${req.get("host")}/${val.image}`;
+    val.image = `${HOSTNAME}:${PORT}/${val.image}`;
     return val;
   });
 
@@ -38,7 +40,7 @@ router.post("/", (req, res) => {
     return res.json({
       data: {
         id: data.id,
-        image: `${req.get("host")}/images/${filename}`,
+        image: `${HOSTNAME}:${PORT}/images/${filename}`,
       },
     });
   });
